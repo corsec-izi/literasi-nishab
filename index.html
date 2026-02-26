@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literasi Kebijakan Zakat 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
+        
+        :root {
+            --primary-green: #8DC63F; /* C:44 M:00 Y:99 K:00 */
+            --grey-medium: #808080;   /* C:00 M:00 Y:00 K:50 */
+            --grey-dark: #4D4D4D;     /* C:00 M:00 Y:00 K:70 */
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--grey-dark);
+            scroll-behavior: smooth;
+        }
+
+        .bg-primary { background-color: var(--primary-green); }
+        .text-primary { color: var(--primary-green); }
+        .border-primary { border-color: var(--primary-green); }
+        .bg-grey-dark { background-color: var(--grey-dark); }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary-green);
+            margin-top: 10px;
+            border-radius: 2px;
+        }
+
+        .fiqh-box {
+            border-left: 4px solid var(--primary-green);
+            background: #fcfdfa;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        .fiqh-box:hover {
+            background: #f4f9eb;
+            transform: translateX(5px);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-green);
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-[#fafafa]">
+
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center text-white">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <span class="block text-lg font-extrabold leading-none text-grey-dark tracking-tighter">POJOK <span class="text-primary">LITERASI</span></span>
+                        <span class="text-[9px] uppercase tracking-[0.2em] font-bold text-grey-medium">Bantu Pahami Kebijakan</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex space-x-10 font-bold text-xs">
+                    <a href="#panduan" class="nav-link text-grey-dark uppercase tracking-wider">Panduan</a>
+                    <a href="#visualisasi" class="nav-link text-grey-dark uppercase tracking-wider">Data Strategis</a>
+                    <a href="#metodologi" class="nav-link text-grey-dark uppercase tracking-wider">Fikih</a>
+                    <a href="#ketentuan" class="nav-link text-grey-dark uppercase tracking-wider">Ketetapan</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="relative py-24 bg-white overflow-hidden">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center space-x-2 bg-green-50 px-4 py-2 rounded-full mb-10 border border-green-100">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                    </span>
+                    <span class="text-[10px] font-bold text-primary tracking-widest uppercase">Edukasi Strategis 2026</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-grey-dark leading-[1.1] mb-8">
+                    Tips Mudah Memahami <br><span class="text-primary">Kebijakan SK Baznas</span>
+                </h1>
+                <p class="text-lg text-grey-medium mb-12 leading-relaxed font-medium">
+                    Kami merangkum intisari kebijakan nisab 2026 berdasarkan rujukan resmi BAZNAS RI agar masyarakat dapat menunaikan zakat dengan tenang, berkeadilan, dan sesuai koridor syariah.
+                </p>
+                <div class="flex justify-center items-center space-x-6">
+                    <a href="#panduan" class="bg-primary text-white px-10 py-4 rounded-2xl font-bold shadow-xl shadow-green-200 hover:-translate-y-1 transition-all">Mulai Memahami</a>
+                    <a href="https://drive.google.com/file/d/1bsu1rCPsAEef_Oy6De1trz5svRwpBR_6/view" target="_blank" class="flex items-center space-x-2 text-grey-dark font-bold hover:text-primary transition">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>Unduh PDF SK</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visualisasi Data Strategis (New Section) -->
+    <section id="visualisasi" class="py-24 bg-gray-50 border-y border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-extrabold mb-4 text-grey-dark section-title inline-block">Visualisasi Data Strategis</h2>
+                <p class="text-grey-medium mt-4 max-w-2xl mx-auto">Data riil yang mendasari penyesuaian nisab 2026 berdasarkan Policy Brief BAZNAS RI.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-12">
+                <!-- Chart 1: Growth Comparison -->
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100">
+                    <h4 class="font-bold text-grey-dark mb-2">Stabilitas & Pertumbuhan (2025)</h4>
+                    <p class="text-xs text-grey-medium mb-6 italic">Perbandingan pertumbuhan harga emas vs indikator ekonomi riil.</p>
+                    <canvas id="growthChart" height="250"></canvas>
+                    <div class="mt-6 p-4 bg-orange-50 rounded-xl text-xs text-orange-800 leading-relaxed">
+                        <i class="fas fa-info-circle mr-1"></i> Pertumbuhan harga emas 24K jauh melampaui pertumbuhan PDB dan Pendapatan masyarakat, sehingga emas 24K tidak lagi representatif sebagai standar tunggal yang adil.
+                    </div>
+                </div>
+
+                <!-- Chart 2: Gold Price Trend -->
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-sm border border-gray-100">
+                    <h4 class="font-bold text-grey-dark mb-2">Tren Harga Emas (2024-2025)</h4>
+                    <p class="text-xs text-grey-medium mb-6 italic">Lonjakan harga emas dalam Rupiah per gram.</p>
+                    <canvas id="goldTrendChart" height="250"></canvas>
+                    <div class="mt-6 p-4 bg-green-50 rounded-xl text-xs text-green-800 leading-relaxed">
+                        <i class="fas fa-chart-line mr-1"></i> Dalam dua tahun, harga emas terapresiasi lebih dari 127%. Perubahan referensi ke emas 14K bertujuan melindungi muzaki dari lonjakan ambang batas yang tidak wajar.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart 3: Income Pyramid -->
+            <div class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-sm border border-gray-100">
+                <div class="lg:flex lg:items-center lg:gap-12">
+                    <div class="lg:w-1/2 mb-8 lg:mb-0">
+                        <h4 class="font-bold text-grey-dark mb-4">Piramida Pendapatan & Posisi Nisab</h4>
+                        <p class="text-sm text-grey-medium leading-relaxed mb-6">
+                            Penetapan Nisab 2026 (Rp 7,64 Juta) menempatkan ambang batas zakat pada kelompok "Desil 8-9". Hal ini memastikan zakat hanya dikenakan pada kelompok masyarakat yang telah mencapai tingkat kecukupan ekonomi yang jelas.
+                        </p>
+                        <div class="space-y-3">
+                            <div class="flex items-center text-xs">
+                                <span class="w-3 h-3 bg-primary rounded-full mr-2"></span>
+                                <span class="font-bold text-grey-dark">Desil 10:</span> <span class="ml-1">> Rp 12.7 Juta/bulan</span>
+                            </div>
+                            <div class="flex items-center text-xs">
+                                <span class="w-3 h-3 bg-[#a3d65c] rounded-full mr-2"></span>
+                                <span class="font-bold text-grey-dark">Nisab 2026:</span> <span class="ml-1 text-primary font-bold">Rp 7.64 Juta/bulan</span>
+                            </div>
+                            <div class="flex items-center text-xs">
+                                <span class="w-3 h-3 bg-gray-300 rounded-full mr-2"></span>
+                                <span class="font-bold text-grey-dark">Desil 1-5:</span> <span class="ml-1">< Rp 4.1 Juta/bulan</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2">
+                        <canvas id="desilChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Poin Cepat -->
+    <section id="panduan" class="py-20 bg-[#fdfdfd]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="glass-card p-10 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500">
+                    <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-primary mb-8">
+                        <i class="fas fa-gem text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold mb-4 text-grey-dark">Kadar Emas Moderat</h3>
+                    <p class="text-sm text-grey-medium leading-relaxed">
+                        Nisab kini menggunakan standar <strong>Emas 14 Karat</strong>. Mengapa? Agar ambang batas tidak melonjak terlalu ekstrem akibat anomali harga emas 24K di pasar spekulasi dunia.
+                    </p>
+                </div>
+                <div class="glass-card p-10 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500 border-t-4 border-primary">
+                    <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-primary mb-8">
+                        <i class="fas fa-wallet text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold mb-4 text-grey-dark">Ambang Batas Adil</h3>
+                    <p class="text-sm text-grey-medium leading-relaxed">
+                        Nisab bulanan ditetapkan sebesar <strong>Rp 7,64 Juta</strong>. Angka ini adalah titik temu yang adil antara kemampuan ekonomi Muzaki dan pemenuhan hak Mustahik.
+                    </p>
+                </div>
+                <div class="glass-card p-10 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-500">
+                    <div class="w-14 h-14 bg-green-50 rounded-2xl flex items-center justify-center text-primary mb-8">
+                        <i class="fas fa-balance-scale text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-extrabold mb-4 text-grey-dark">Standar Nasional</h3>
+                    <p class="text-sm text-grey-medium leading-relaxed">
+                        Literasi ini merujuk sepenuhnya pada <strong>Policy Brief BAZNAS RI</strong> dalam pengelolaan zakat secara nasional.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Urgensi Kebijakan (Simplified, as analysis charts added above) -->
+    <section id="analisis" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-20 items-center">
+                <div class="relative">
+                    <div class="bg-primary/5 rounded-[3rem] p-4 transform rotate-2">
+                        <div class="bg-white p-10 rounded-[2.5rem] shadow-2xl transform -rotate-2 border border-gray-100">
+                            <h4 class="font-black text-primary uppercase text-[10px] tracking-widest mb-6">Analisis Strategis</h4>
+                            <div class="space-y-8">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 bg-orange-50 text-orange-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-arrow-up"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-grey-dark text-sm mb-1">Anomali Pasar Global</p>
+                                        <p class="text-xs text-grey-medium leading-relaxed">Harga emas 24K meningkat ~70% yoy, melampaui pertumbuhan ekonomi riil masyarakat.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 bg-green-50 text-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-shield-alt"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-grey-dark text-sm mb-1">Menjaga Kekuatan Zakat</p>
+                                        <p class="text-xs text-grey-medium leading-relaxed">Penyesuaian diperlukan dalam rangka memastikan bantuan kepada mustahik tetap terjaga, di saat kondisi mustahik semakin membutuhkan bantuan.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-16 lg:mt-0">
+                    <h2 class="text-4xl font-extrabold mb-8 text-grey-dark section-title">Keselarasan Dengan <br>Pertumbuhan Ekonomi</h2>
+                    <p class="text-grey-medium mb-10 leading-relaxed font-medium">
+                        Penyesuaian nisab 2026 sebesar 7% dirancang agar selaras dengan rata-rata kenaikan pendapatan nasional, sehingga tidak membebani muzaki namun tetap optimal bagi mustahik.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="p-6 bg-gray-50 rounded-2xl">
+                            <span class="block text-[10px] font-bold text-grey-medium uppercase mb-2">PDB Per Kapita</span>
+                            <span class="text-2xl font-black text-grey-dark">+5.3%</span>
+                            <span class="block text-[10px] text-grey-medium mt-1 italic leading-tight">Rata-rata pertumbuhan ekonomi nasional tahun 2025.</span>
+                        </div>
+                        <div class="p-6 bg-gray-50 rounded-2xl border-l-4 border-primary">
+                            <span class="block text-[10px] font-bold text-grey-medium uppercase mb-2">Penyesuaian Nisab</span>
+                            <span class="text-2xl font-black text-primary">+7.0%</span>
+                            <span class="block text-[10px] text-grey-medium mt-1 italic leading-tight">Kenaikan batas zakat 2026, selaras dengan daya beli masyarakat.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fikih Lengkap (Deep Academic) -->
+    <section id="metodologi" class="py-24 bg-[#fcfdfa]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl font-extrabold text-grey-dark mb-4">Eksplorasi Landasan Fikih</h2>
+                <p class="text-grey-medium max-w-2xl mx-auto">Jawaban akademis terhadap reorientasi standar emas 14 karat.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-10">
+                <div class="fiqh-box">
+                    <h3 class="text-xl font-extrabold text-grey-dark mb-4">1. Doktrin <span class="text-primary italic">Al-Hukmu lil Ghalib</span></h3>
+                    <p class="text-sm text-grey-medium leading-relaxed mb-4">
+                        Dalam literatur Mazhab Hanafi (merujuk pada kitab <span class="italic">Al-Fiqh 'ala al-Madzahib al-Arba'ah</span>), penetapan hukum logam mulia ditentukan oleh unsur dominannya. 
+                    </p>
+                    <div class="bg-white/50 p-4 rounded-xl text-xs italic border-l-2 border-primary mb-4">
+                        "Kandungan emas di atas 50% secara otomatis masuk dalam kategori emas yang wajib dizakati berdasarkan berat totalnya."
+                    </div>
+                    <p class="text-sm text-grey-medium leading-relaxed">
+                        Emas 14 Karat memiliki kadar kemurnian **58,33% - 62,49%**. Berdasarkan kaidah <span class="italic">Al-Ghalabah</span>, ia dihukumi sebagai emas (<span class="italic">dzahab</span>) seutuhnya, sehingga sah secara syar'i untuk dijadikan referensi nisab demi mempermudah hitungan bagi masyarakat.
+                    </p>
+                </div>
+                <div class="fiqh-box">
+                    <h3 class="text-xl font-extrabold text-grey-dark mb-4">2. Maslahat <span class="text-primary italic">Al-Fuqara wal Masakin</span></h3>
+                    <p class="text-sm text-grey-medium leading-relaxed">
+                        Merujuk pada ijtihad Mufti Dar Al-Ifta Mesir (Dr. Shawqi Allam) dan Prof. Dr. Sulaiman Ar-Rahily, penentuan nisab harus mempertimbangkan keseimbangan antara Muzaki (Si Kaya) dan Mustahik (Si Miskin).
+                    </p>
+                    <p class="text-sm text-grey-medium mt-4 leading-relaxed">
+                        Penggunaan standar emas murni (24K) di tengah inflasi harga komoditas hanya menguntungkan Muzaki (karena batas zakat jadi terlalu tinggi), namun merugikan fakir miskin karena volume zakat berkurang. Fikih mengajarkan untuk mengambil standar yang paling maslahat bagi penerima zakat.
+                    </p>
+                </div>
+                <div class="fiqh-box">
+                    <h3 class="text-xl font-extrabold text-grey-dark mb-4">3. Analogi <span class="text-primary italic">Qiyas Syabah</span> Zira'ah</h3>
+                    <p class="text-sm text-grey-medium leading-relaxed">
+                        Ulama kontemporer seperti Syaikh Muhammad Ghazali menganalogikan penghasilan profesi modern dengan hasil pertanian (<span class="italic">Zira'ah</span>). Mengapa? Karena keduanya merupakan hasil langsung dari usaha aktif (panen).
+                    </p>
+                    <p class="text-sm text-grey-medium mt-4 leading-relaxed">
+                        Nisab pertanian adalah 653 kg gabah. Jika dikonversikan ke nilai rupiah hari ini, angka tersebut sangat identik dengan nilai emas 14 Karat. Pendekatan ini menjaga konsistensi syariah: nisab mengacu pada hasil pertanian, namun kadar tarif tetap 2,5% mengacu pada zakat uang.
+                    </p>
+                </div>
+                <div class="fiqh-box border-primary/30">
+                    <h3 class="text-xl font-extrabold text-grey-dark mb-4">4. Akseptabilitas Pasar <span class="text-primary italic">Rawaj</span></h3>
+                    <p class="text-sm text-grey-medium leading-relaxed">
+                        Berdasarkan pandangan Mazhab Maliki, standar nisab sah jika didasarkan pada aset yang "laku" atau diterima secara masif sebagai penyimpan nilai di masyarakat (<span class="italic">Rawaj</span>). Mengingat perhiasan emas karatase menengah adalah instrumen tabungan paling populer di masyarakat Indonesia, ia menjadi parameter kekayaan yang paling relevan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ringkasan Ketentuan -->
+    <section id="ketentuan" class="py-24 bg-grey-dark text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-5">
+            <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
+                </pattern>
+                <rect width="100" height="100" fill="url(#grid)" />
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black mb-4 uppercase tracking-tighter">Ketentuan Nisab 2026</h2>
+                <div class="h-1.5 w-20 bg-primary mx-auto rounded-full"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+                <div class="bg-white/5 backdrop-blur-xl rounded-[2.5rem] p-12 border border-white/10 group hover:bg-white/10 transition-all duration-500 text-center">
+                    <span class="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block mb-6">Periode Bulanan</span>
+                    <h3 class="text-5xl font-black mb-4">Rp 7.640.144</h3>
+                    <p class="text-xs text-gray-300 font-medium">Batas penghasilan bersih bulanan wajib zakat.</p>
+                </div>
+                <div class="bg-white rounded-[2.5rem] p-12 shadow-2xl relative text-center">
+                    <div class="absolute -top-4 -right-4 bg-primary text-white text-[10px] font-bold px-4 py-1.5 rounded-full shadow-lg">RESMI</div>
+                    <span class="text-[10px] font-bold text-primary uppercase tracking-[0.3em] block mb-6">Periode Tahunan</span>
+                    <h3 class="text-5xl font-black mb-4 text-black">Rp 91.681.728</h3>
+                    <p class="text-xs text-black font-bold">Berdasarkan rata-rata harga pasar tahun 2025.</p>
+                </div>
+            </div>
+            <p class="mt-12 text-center text-[10px] text-gray-200 max-w-3xl mx-auto leading-relaxed italic font-medium">
+                Sesuai dengan SK Ketua BAZNAS Nomor 15 Tahun 2026 Tentang Nilai Nisab Zakat Pendapatan dan Jasa Tahun 2026 yang menjadi pedoman bagi Lembaga Amil Zakat di Indonesia.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer Literasi -->
+    <footer class="bg-white py-20 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-16">
+                <div class="flex items-center space-x-3 mb-8 md:mb-0">
+                    <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div>
+                        <span class="block text-xl font-extrabold text-grey-dark tracking-tighter">POJOK <span class="text-primary">LITERASI</span></span>
+                        <span class="text-[9px] uppercase tracking-widest font-bold text-grey-medium">Bantu Pahami Kebijakan</span>
+                    </div>
+                </div>
+                <div class="flex space-x-12 text-[10px] font-bold text-grey-medium tracking-widest uppercase">
+                    <a href="https://drive.google.com/file/d/1bsu1rCPsAEef_Oy6De1trz5svRwpBR_6/view" target="_blank" class="hover:text-primary transition">Referensi PDF</a>
+                    <a href="https://izi.or.id/tentang-kami/" target="_blank" class="hover:text-primary transition">Tentang Kami</a>
+                </div>
+            </div>
+            <div class="pt-10 border-t border-gray-100 text-center">
+                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-[0.4em]">
+                    &copy; 2026 Corsec IZI | Edukasi Literasi SK Baznas
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Charts implementation
+        window.onload = function() {
+            // Growth Comparison Chart
+            const ctxGrowth = document.getElementById('growthChart').getContext('2d');
+            new Chart(ctxGrowth, {
+                type: 'bar',
+                data: {
+                    labels: ['Emas 24K', 'Beras', 'PDB Per Kapita', 'Inflasi'],
+                    datasets: [{
+                        label: 'Pertumbuhan (%)',
+                        data: [127.15, 4.06, 5.3, 2.92],
+                        backgroundColor: ['#e63946', '#8DC63F', '#4D4D4D', '#808080'],
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, title: { display: true, text: 'Persentase (%)' } } }
+                }
+            });
+
+            // Gold Price Trend Chart
+            const ctxGold = document.getElementById('goldTrendChart').getContext('2d');
+            new Chart(ctxGold, {
+                type: 'line',
+                data: {
+                    labels: ['Jan 24', 'Apr 24', 'Jul 24', 'Okt 24', 'Jan 25', 'Apr 25', 'Jul 25', 'Des 25'],
+                    datasets: [{
+                        label: 'Harga per Gram (IDR)',
+                        data: [1022018, 1250000, 1400000, 1500000, 1600000, 1850000, 2100000, 2321492],
+                        borderColor: '#8DC63F',
+                        backgroundColor: 'rgba(141, 198, 63, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { y: { ticks: { callback: value => 'Rp' + value.toLocaleString() } } }
+                }
+            });
+
+            // Desil Population Chart (Income Pyramid)
+            const ctxDesil = document.getElementById('desilChart').getContext('2d');
+            new Chart(ctxDesil, {
+                type: 'bar',
+                data: {
+                    labels: ['Desil 10', 'Desil 9', 'Desil 8', 'Desil 7', 'Desil 6', 'Desil 5', 'Desil 1-4'],
+                    datasets: [{
+                        label: 'Pendapatan (Juta/Bulan)',
+                        data: [12.7, 10.4, 7.15, 5.6, 4.5, 3.7, 2.5],
+                        backgroundColor: (context) => {
+                            const index = context.dataIndex;
+                            return index === 2 ? '#8DC63F' : '#e5e7eb'; // Highlight Desil 8 (Nisab area)
+                        },
+                        borderRadius: 5
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: { callbacks: { label: (c) => `Rp ${c.raw} Juta` } }
+                    },
+                    scales: { x: { title: { display: true, text: 'Juta Rupiah' } } }
+                }
+            });
+        };
+    </script>
+</body>
+</html>
